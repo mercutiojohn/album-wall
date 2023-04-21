@@ -5,7 +5,7 @@
     class="album-cover-wall"
     @click="handleClickBack()"
   > -->
-  <div class="album-cover-wall" @click="handleClickBack()">
+  <div class="album-cover-wall" @click="handleClickBack">
     <div
       v-for="(album, index) in albums"
       @click.stop="handleClickAlbum(index)"
@@ -17,6 +17,7 @@
         :title="album.title"
         :artist="album.artist"
         :isFlipped="isFlipped(index)"
+        @close="handleClickBack"
       />
     </div>
   </div>

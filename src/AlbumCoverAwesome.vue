@@ -16,6 +16,9 @@
         <h3>{{ title }}</h3>
         <p>{{ artist }}</p>
       </div>
+      <div class="close" @click.stop="handleClose">
+        <span class="close-icon">x</span>
+      </div>
     </div>
   </div>
 </template>
@@ -152,6 +155,10 @@ export default {
         // this.overlayEl.style.transform = ``;
         this.overlayEl.style.opacity = "0";
       }
+    },
+    handleClose() {
+      console.log("[before-emit]");
+      this.$emit("close");
     }
   }
 };
@@ -191,6 +198,7 @@ export default {
     opacity 0.6s ease 0.2s, box-shadow 0.4s ease, filter 0.9s ease;
 }
 .tilt-wrapper {
+  cursor: pointer;
   box-shadow: rgba(14, 21, 47, 0.6) 0px 3px 5px -2px;
 }
 .tilt-flipped {
@@ -353,5 +361,30 @@ export default {
   font-size: 14px;
   font-weight: normal;
   line-height: 1.2;
+}
+.tilt-flipped .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  background: #ffffff23;
+  color: #fff;
+  user-select: none;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease,
+    transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.tilt-flipped .close:hover {
+  background: #ffffff78;
+  color: #000;
+}
+.tilt-flipped .close:active {
+  background: #ffffff;
+  transform: scale(1.12);
 }
 </style>

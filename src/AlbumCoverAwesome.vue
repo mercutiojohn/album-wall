@@ -11,7 +11,7 @@
         <div class="overlay"></div>
       </div>
     </div>
-    <div class="tilt-flipped" :class="{ flipped: isFlipped }">
+    <div class="tilt-flipped" ref="flipped" :class="{ flipped: isFlipped }">
       <div class="album-info">
           <h3>{{ title }}</h3>
           <p>{{ artist }}</p>
@@ -67,6 +67,7 @@ export default {
   mounted() {
     this.containerEl = this.$refs.container;
     this.wrapperEl = this.$refs.wrapper;
+    this.flippedEl = this.$refs.flipped;
     this.divEl = this.$refs.div;
     this.overlayEl = this.divEl.querySelector(".overlay");
 
@@ -221,6 +222,10 @@ export default {
   transform: rotateY(0deg) scale(1.25);
   box-shadow: rgba(14, 21, 47, 0.6) 0px 16px 40px -2px;
   z-index: 100;
+}
+.tilt-flipped.flipped:active {
+  transform: rotateY(0deg) scale(1.23);
+  /* box-shadow: 0 6px 20px 2px #00000043; */
 }
 
 .front {

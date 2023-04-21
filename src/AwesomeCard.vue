@@ -1,13 +1,21 @@
 <template>
-  <div class="playground-box">
-    <div ref="container" class="tilt-container">
-      <div class="tilt-wrapper" ref="wrapper">
+  <div class="playground-box" @click="handleClickBack()">
+    <div ref="container" class="tilt-container" @click.stop="handleClickAlbum()">
+      <div class="tilt-wrapper" ref="wrapper" :class="{ flipped: isFlipped }">
         <div class="tilt-div" ref="div">
-          <div class="front">
-            <img src="https://picsum.photos/250/150?random=1" alt="placeholder" />
-          </div>
           <div class="back"></div>
+          <div class="front">
+            <div class="album-cover-image">
+                <img :src="cover" alt="Album Cover" />
+            </div>
+          </div>
           <div class="overlay"></div>
+        </div>
+      </div>
+      <div class="tilt-flipped" :class="{ flipped: isFlipped }">
+        <div class="album-info">
+            <h3>{{ title }}</h3>
+            <p>{{ artist }}</p>
         </div>
       </div>
     </div>
@@ -36,6 +44,11 @@ export default {
       //
       translateX: "",
       translateY: "",
+      // test
+      title: 'aaa',
+      artist: 'bbb',
+      cover: 'https://picsum.photos/100/100?random=1',
+      isFlipped: false
     };
   },
   mounted() {
@@ -53,7 +66,18 @@ export default {
     this.containerEl.removeEventListener("mousemove", this.handleMouseMove);
     this.containerEl.removeEventListener("mouseout", this.handleMouseOut);
   },
+  watch:{
+    isFlipped(newVal) {
+      this.handleMouseOut()
+    }
+  },
   methods: {
+    handleClickAlbum() {
+      this.isFlipped = true;
+    },
+    handleClickBack() {
+      this.isFlipped = false;
+    },
     calculate(event) {
       this.containerRect = this.containerEl.getBoundingClientRect();
       this.mouseX = event.clientX - this.containerRect.left;
@@ -76,37 +100,45 @@ export default {
       // this.overlayEl.style.transform = `translate(${translateX}px, ${translateY}px)`;
     },
     handleMouseMove(event) {
-      this.calculate(event);
+      if(!this.isFlipped){
+        this.calculate(event);
 
-      this.wrapperEl.style.transform = `rotateX(${-this.tiltX}deg) rotateY(${
-        this.tiltY
-      }deg) scale(1.02)`;
-      this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+        this.wrapperEl.style.transform = `rotateX(${-this.tiltX}deg) rotateY(${
+          this.tiltY
+        }deg) scale(1.02)`;
+        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
 
-      this.overlayEl.style.opacity = "1";
+        this.overlayEl.style.opacity = "1";
 
-      // this.wrapperEl.style.transformStyle = "flat";
+        // this.wrapperEl.style.transformStyle = "flat";
+      }
     },
     handleMouseDown(event) {
-      this.calculate(event);
+      if(!this.isFlipped){
+        this.calculate(event);
 
-      this.wrapperEl.style.transform = `rotateX(${
-        -this.tiltX * 1.4
-      }deg) rotateY(${this.tiltY * 1.4}deg)`;
-      this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+        this.wrapperEl.style.transform = `rotateX(${
+          -this.tiltX * 1.4
+        }deg) rotateY(${this.tiltY * 1.4}deg)`;
+        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+      }
     },
     handleMouseUp(event) {
-      this.calculate(event);
+      if(!this.isFlipped){
+        this.calculate(event);
 
-      this.wrapperEl.style.transform = `rotateX(${-this.tiltX}deg) rotateY(${
-        this.tiltY
-      }deg) scale(1.02)`;
-      this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+        this.wrapperEl.style.transform = `rotateX(${-this.tiltX}deg) rotateY(${
+          this.tiltY
+        }deg) scale(1.02)`;
+        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+      }
     },
     handleMouseOut() {
-      this.wrapperEl.style.transform = "";
-      // this.overlayEl.style.transform = ``;
-      this.overlayEl.style.opacity = "0";
+      if(!this.isFlipped){
+        this.wrapperEl.style.transform = "";
+        // this.overlayEl.style.transform = ``;
+        this.overlayEl.style.opacity = "0";
+      }
     },
   },
 };
@@ -123,18 +155,26 @@ export default {
 .tilt-container {
   border-radius: 15px;
   transform-style: preserve-3d;
-  transform: perspective(450px);
-  width: 250px;
-  height: 150px;
+  transform: perspective(800px);
+  width: 300px;
+  height: 300px;
 }
 
-.tilt-wrapper {
-  position: relative;
+.tilt-wrapper,
+.tilt-flipped {
+  position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   border-radius: 15px;
-  transition: all 0.3s ease 0s;
+  /* transition: all 0.3s ease 0s; */
   overflow: hidden;
+}
+.tilt-wrapper {
+  box-shadow: rgba(14, 21, 47, 0.6) 0px 3px 5px -2px;
+}
+.tilt-flipped {
   box-shadow: rgba(14, 21, 47, 0.6) 0px 3px 5px -2px;
 }
 .tilt-wrapper:hover {
@@ -147,8 +187,34 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  transition: all 0.2s ease-out 0s;
+  /* transition: all 0.2s ease-out 0s; */
   border-radius: 15px;
+}
+
+/* flip */
+.tilt-wrapper,
+.tilt-flipped {
+  backface-visibility: hidden;
+  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1),
+    opacity 0.6s ease 0.2s, box-shadow 0.8s ease;
+}
+
+.tilt-wrapper {
+  transform: rotateY(0deg);
+}
+.tilt-wrapper.flipped {
+  /* opacity: 0; */
+  transform: rotateY(-180deg) scale(1.25)!important;
+}
+.tilt-flipped {
+  /* opacity: 0; */
+  transform: rotateY(180deg);
+}
+
+.tilt-flipped.flipped {
+  /* opacity: 1; */
+  transform: rotateY(0deg) scale(1.25);
+  box-shadow: rgba(14, 21, 47, 0.6) 0px 16px 40px -2px;
 }
 
 .front {
@@ -213,10 +279,27 @@ export default {
   /* transform: scale(0); */
   transition: opacity 0.3s ease-out, transform 0.01s ease 0s;
   /* , transform 0.3s ease-out */
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 .overlay:hover {
   /* transform: scale(1); */
   /* opacity: 0.8; */
+}
+.album-cover-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.album-cover-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  backface-visibility: hidden;
 }
 </style>

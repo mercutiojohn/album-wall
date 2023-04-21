@@ -2,17 +2,20 @@
   <div id="app">
     <!-- <AlbumWall :albums="albums" /> -->
     <AlbumWallSimple :albums="albums" />
+    <AwesomeCard />
   </div>
 </template>
 
 <script>
-import AlbumWall from "@/AlbumWall";
+// import AlbumWall from "@/AlbumWall";
 import AlbumWallSimple from "@/AlbumWallSimple";
+import AwesomeCard from "@/AwesomeCard";
 export default {
   name: "App",
   components: {
-    AlbumWall,
+    // AlbumWall,
     AlbumWallSimple,
+    AwesomeCard
   },
   data() {
     return {

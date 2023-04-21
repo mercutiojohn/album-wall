@@ -22,32 +22,32 @@ export default {
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1"
+          cover: "https://picsum.photos/200/200?random=2"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1"
+          cover: "https://picsum.photos/200/200?random=3"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1"
+          cover: "https://picsum.photos/200/200?random=4"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1"
+          cover: "https://picsum.photos/200/200?random=5"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1"
+          cover: "https://picsum.photos/200/200?random=6"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1"
+          cover: "https://picsum.photos/200/200?random=7"
         }
       ]
     };
@@ -62,6 +62,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* -------------- */
+  display: flex;
 }
 </style>

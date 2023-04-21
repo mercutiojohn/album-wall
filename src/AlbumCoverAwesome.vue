@@ -162,8 +162,10 @@ export default {
   border-radius: 15px;
   transform-style: preserve-3d;
   transform: perspective(800px);
-  width: 300px;
-  height: 300px;
+  /* width: 300px;
+  height: 300px; */
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 .tilt-container:hover {

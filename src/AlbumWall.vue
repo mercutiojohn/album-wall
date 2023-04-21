@@ -34,12 +34,12 @@ export default {
   props: {
     albums: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      flippedIndex: -1,
+      flippedIndex: -1
     };
   },
   methods: {
@@ -48,8 +48,8 @@ export default {
     },
     handleClickBack(index) {
       this.flippedIndex = -1;
-    },
-  },
+    }
+  }
 };
 </script>
 

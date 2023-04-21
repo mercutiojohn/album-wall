@@ -5,7 +5,7 @@
         <div class="back"></div>
         <div class="front">
           <div class="album-cover-image">
-              <img :src="cover" alt="Album Cover" />
+            <img :src="cover" alt="Album Cover" />
           </div>
         </div>
         <div class="overlay"></div>
@@ -13,8 +13,8 @@
     </div>
     <div class="tilt-flipped" ref="flipped" :class="{ flipped: isFlipped }">
       <div class="album-info">
-          <h3>{{ title }}</h3>
-          <p>{{ artist }}</p>
+        <h3>{{ title }}</h3>
+        <p>{{ artist }}</p>
       </div>
     </div>
   </div>
@@ -26,21 +26,21 @@ export default {
   props: {
     cover: {
       type: String,
-      required: true,
+      required: true
     },
     title: {
       type: String,
-      required: true,
+      required: true
     },
     artist: {
       type: String,
-      required: true,
+      required: true
     },
     isFlipped: {
       type: Boolean,
       required: false,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -61,7 +61,7 @@ export default {
       wrapperCenterY: "",
       //
       translateX: "",
-      translateY: "",
+      translateY: ""
     };
   },
   mounted() {
@@ -80,9 +80,9 @@ export default {
     this.containerEl.removeEventListener("mousemove", this.handleMouseMove);
     this.containerEl.removeEventListener("mouseout", this.handleMouseOut);
   },
-  watch:{
+  watch: {
     isFlipped() {
-      this.handleMouseOut()
+      this.handleMouseOut();
     }
   },
   methods: {
@@ -91,8 +91,8 @@ export default {
       this.mouseX = event.clientX - this.containerRect.left;
       this.mouseY = event.clientY - this.containerRect.top;
 
-      this.tiltX = (this.mouseY / this.containerRect.height - 0.5) * 20;
-      this.tiltY = (this.mouseX / this.containerRect.width - 0.5) * 20;
+      this.tiltX = (this.mouseY / this.containerRect.height - 0.5) * 10;
+      this.tiltY = (this.mouseX / this.containerRect.width - 0.5) * 10;
 
       // this.wrapperEl.style.transform = `rotateX(${this.tiltX}deg) rotateY(${this.tiltY}deg) scale(0.97)`;
       // this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
@@ -108,13 +108,15 @@ export default {
       // this.overlayEl.style.transform = `translate(${translateX}px, ${translateY}px)`;
     },
     handleMouseMove(event) {
-      if(!this.isFlipped){
+      if (!this.isFlipped) {
         this.calculate(event);
 
         this.wrapperEl.style.transform = `rotateX(${-this.tiltX}deg) rotateY(${
           this.tiltY
         }deg) scale(1.02)`;
-        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${
+          this.mouseY
+        }px)`;
 
         this.overlayEl.style.opacity = "1";
 
@@ -122,33 +124,36 @@ export default {
       }
     },
     handleMouseDown(event) {
-      if(!this.isFlipped){
+      if (!this.isFlipped) {
         this.calculate(event);
 
-        this.wrapperEl.style.transform = `rotateX(${
-          -this.tiltX * 1.4
-        }deg) rotateY(${this.tiltY * 1.4}deg)`;
-        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+        this.wrapperEl.style.transform = `rotateX(${-this.tiltX *
+          1.8}deg) rotateY(${this.tiltY * 1.8}deg)`;
+        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${
+          this.mouseY
+        }px)`;
       }
     },
     handleMouseUp(event) {
-      if(!this.isFlipped){
+      if (!this.isFlipped) {
         this.calculate(event);
 
         this.wrapperEl.style.transform = `rotateX(${-this.tiltX}deg) rotateY(${
           this.tiltY
         }deg) scale(1.02)`;
-        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${this.mouseY}px)`;
+        this.overlayEl.style.transform = `translate(${this.mouseX}px, ${
+          this.mouseY
+        }px)`;
       }
     },
     handleMouseOut() {
-      if(!this.isFlipped){
+      if (!this.isFlipped) {
         this.wrapperEl.style.transform = "";
         // this.overlayEl.style.transform = ``;
         this.overlayEl.style.opacity = "0";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -160,6 +165,9 @@ export default {
   width: 300px;
   height: 300px;
   position: relative;
+}
+.tilt-container:hover {
+  z-index: 50;
 }
 .tilt-container.flipped {
   /* position: absolute; */
@@ -176,6 +184,9 @@ export default {
   /* transition: all 0.3s ease 0s; */
   overflow: hidden;
   background: #000;
+  backface-visibility: hidden;
+  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1),
+    opacity 0.6s ease 0.2s, box-shadow 0.4s ease, filter 0.9s ease;
 }
 .tilt-wrapper {
   box-shadow: rgba(14, 21, 47, 0.6) 0px 3px 5px -2px;
@@ -184,10 +195,11 @@ export default {
   box-shadow: rgba(14, 21, 47, 0.6) 0px 3px 5px -2px;
 }
 .tilt-wrapper:hover {
-  box-shadow: rgba(14, 21, 47, 0.6) 0px 18px 50px -3px;
+  box-shadow: rgba(14, 21, 47, 0.5) 0px 12px 30px -3px;
+  filter: saturate(180%);
 }
 .tilt-wrapper:active {
-  box-shadow: rgba(14, 21, 47, 0.6) 0px 16px 40px -2px;
+  box-shadow: rgba(14, 21, 47, 0.3) 0px 6px 10px -2px;
 }
 .tilt-div {
   position: absolute;
@@ -198,19 +210,12 @@ export default {
 }
 
 /* flip */
-.tilt-wrapper,
-.tilt-flipped {
-  backface-visibility: hidden;
-  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1),
-    opacity 0.6s ease 0.2s, box-shadow 0.8s ease;
-}
-
 .tilt-wrapper {
   transform: rotateY(0deg);
 }
 .tilt-wrapper.flipped {
   /* opacity: 0; */
-  transform: rotateY(-180deg) scale(1.25)!important;
+  transform: rotateY(-180deg) scale(1.25) !important;
 }
 .tilt-flipped {
   /* opacity: 0; */
@@ -286,7 +291,7 @@ export default {
     rgba(255, 255, 255, 0.2) 0%,
     rgba(255, 255, 255, 0) 60%
   );
-  backdrop-filter: saturate(180%);
+  /* backdrop-filter: saturate(180%); */
   /* background: #ABC; */
   /* transform: scale(0); */
   transition: opacity 0.3s ease-out, transform 0.01s ease 0s;

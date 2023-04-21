@@ -1,22 +1,20 @@
 <template>
-  <div class="playground-box" @click="handleClickBack()">
-    <div ref="container" class="tilt-container" @click.stop="handleClickAlbum()">
-      <div class="tilt-wrapper" ref="wrapper" :class="{ flipped: isFlipped }">
-        <div class="tilt-div" ref="div">
-          <div class="back"></div>
-          <div class="front">
-            <div class="album-cover-image">
-                <img :src="cover" alt="Album Cover" />
-            </div>
+  <div ref="container" class="tilt-container">
+    <div class="tilt-wrapper" ref="wrapper" :class="{ flipped: isFlipped }">
+      <div class="tilt-div" ref="div">
+        <div class="back"></div>
+        <div class="front">
+          <div class="album-cover-image">
+              <img :src="cover" alt="Album Cover" />
           </div>
-          <div class="overlay"></div>
         </div>
+        <div class="overlay"></div>
       </div>
-      <div class="tilt-flipped" :class="{ flipped: isFlipped }">
-        <div class="album-info">
-            <h3>{{ title }}</h3>
-            <p>{{ artist }}</p>
-        </div>
+    </div>
+    <div class="tilt-flipped" :class="{ flipped: isFlipped }">
+      <div class="album-info">
+          <h3>{{ title }}</h3>
+          <p>{{ artist }}</p>
       </div>
     </div>
   </div>
@@ -24,6 +22,26 @@
 
 <script>
 export default {
+  name: "AlbumCover",
+  props: {
+    cover: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    artist: {
+      type: String,
+      required: true,
+    },
+    isFlipped: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
   data() {
     return {
       containerEl: null,
@@ -44,11 +62,6 @@ export default {
       //
       translateX: "",
       translateY: "",
-      // test
-      title: 'aaa',
-      artist: 'bbb',
-      cover: 'https://picsum.photos/100/100?random=1',
-      isFlipped: false
     };
   },
   mounted() {
@@ -72,12 +85,6 @@ export default {
     }
   },
   methods: {
-    handleClickAlbum() {
-      this.isFlipped = true;
-    },
-    handleClickBack() {
-      this.isFlipped = false;
-    },
     calculate(event) {
       this.containerRect = this.containerEl.getBoundingClientRect();
       this.mouseX = event.clientX - this.containerRect.left;
@@ -145,13 +152,6 @@ export default {
 </script>
 
 <style scoped>
-.playground-box {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .tilt-container {
   border-radius: 15px;
   transform-style: preserve-3d;

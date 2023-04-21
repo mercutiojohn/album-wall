@@ -174,6 +174,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+  transition: position 0.2s ease;
 }
 .tilt-container:hover {
   z-index: 50;
@@ -376,6 +377,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
   transition: background 0.2s ease, color 0.2s ease,
     transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -386,5 +388,15 @@ export default {
 .tilt-flipped .close:active {
   background: #ffffff;
   transform: scale(1.12);
+}
+@media screen and (max-width: 600px) {
+  .tilt-container.flipped {
+    --cover-size: calc(100vw - 150px);
+    position: fixed;
+    width: var(--cover-size);
+    height: var(--cover-size);
+    top: calc(50% - var(--cover-size) / 2);
+    left: calc(50% - var(--cover-size) / 2);
+  }
 }
 </style>

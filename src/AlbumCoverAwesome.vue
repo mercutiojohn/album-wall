@@ -391,7 +391,7 @@ export default {
 }
 @media screen and (max-width: 600px) {
   .tilt-container.flipped {
-    --cover-size: calc(100vw - 150px);
+    --cover-size: calc(100vw - 130px);
     position: fixed;
     width: var(--cover-size);
     height: var(--cover-size);

@@ -1,21 +1,15 @@
 <template>
   <div id="app">
-    <!-- <AlbumWall :albums="albums" /> -->
-    <AlbumWallSimple :albums="albums" />
-    <AwesomeCard />
+    <AlbumWall :albums="albums" />
   </div>
 </template>
 
 <script>
-// import AlbumWall from "@/AlbumWall";
-import AlbumWallSimple from "@/AlbumWallSimple";
-import AwesomeCard from "@/AwesomeCard";
+import AlbumWall from "@/AlbumWallSimple";
 export default {
   name: "App",
   components: {
-    // AlbumWall,
-    AlbumWallSimple,
-    AwesomeCard
+    AlbumWall
   },
   data() {
     return {
@@ -23,41 +17,41 @@ export default {
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
+          cover: "https://picsum.photos/200/200?random=1"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
+          cover: "https://picsum.photos/200/200?random=1"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
+          cover: "https://picsum.photos/200/200?random=1"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
+          cover: "https://picsum.photos/200/200?random=1"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
+          cover: "https://picsum.photos/200/200?random=1"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
+          cover: "https://picsum.photos/200/200?random=1"
         },
         {
           title: "专辑标题",
           artist: "艺术家名称",
-          cover: "https://picsum.photos/200/200?random=1",
-        },
-      ],
+          cover: "https://picsum.photos/200/200?random=1"
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 

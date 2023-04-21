@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="tilt-container">
+  <div ref="container" class="tilt-container" :class="{ flipped: isFlipped }">
     <div class="tilt-wrapper" ref="wrapper" :class="{ flipped: isFlipped }">
       <div class="tilt-div" ref="div">
         <div class="back"></div>
@@ -158,8 +158,12 @@ export default {
   transform: perspective(800px);
   width: 300px;
   height: 300px;
+  position: relative;
 }
-
+.tilt-container.flipped {
+  /* position: absolute; */
+  z-index: 100;
+}
 .tilt-wrapper,
 .tilt-flipped {
   position: absolute;
@@ -170,6 +174,7 @@ export default {
   border-radius: 15px;
   /* transition: all 0.3s ease 0s; */
   overflow: hidden;
+  background: #000;
 }
 .tilt-wrapper {
   box-shadow: rgba(14, 21, 47, 0.6) 0px 3px 5px -2px;
@@ -215,6 +220,7 @@ export default {
   /* opacity: 1; */
   transform: rotateY(0deg) scale(1.25);
   box-shadow: rgba(14, 21, 47, 0.6) 0px 16px 40px -2px;
+  z-index: 100;
 }
 
 .front {
@@ -262,19 +268,20 @@ export default {
   /* border-radius: 15px; */
   /* background: rgba(0, 0, 0, 0.4); */
   opacity: 0;
-  top: -250px;
-  left: -250px;
+  top: -400px;
+  left: -400px;
   /* width: 200%;
   height: 200%;
   top: 0;
   left: 0; */
-  width: 500px;
-  height: 500px;
+  width: 800px;
+  height: 800px;
   background: radial-gradient(
     ellipse farthest-corner at center,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0) 80%
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 60%
   );
+  backdrop-filter: saturate(180%);
   /* background: #ABC; */
   /* transform: scale(0); */
   transition: opacity 0.3s ease-out, transform 0.01s ease 0s;
@@ -301,5 +308,38 @@ export default {
   height: 100%;
   object-fit: cover;
   backface-visibility: hidden;
+}
+.album-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  background-color: #000;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  transform: translateZ(50px);
+}
+
+.album-info h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.album-info p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
 }
 </style>

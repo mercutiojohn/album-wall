@@ -17,12 +17,13 @@
 </template>
 
 <script>
-import AlbumCover from "./AlbumCover.vue";
+// import AlbumCover from "./AlbumCover.vue";
+import AlbumCover from "./AlbumCoverAwesome.vue";
 
 export default {
   name: "AlbumCoverWall",
   components: {
-    AlbumCover,
+    AlbumCover
   },
   props: {
     albums: {
